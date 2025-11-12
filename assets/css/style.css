@@ -415,6 +415,7 @@ table tbody tr:hover {
   text-decoration: none;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
   letter-spacing: 0.3px;
 }

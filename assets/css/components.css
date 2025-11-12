@@ -1,0 +1,255 @@
+/* ===================================
+   REUSABLE COMPONENTS
+   =================================== */
+
+/* ===== PRODUCT CARD ===== */
+.product-card {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.product-image {
+  width: 100%;
+  height: 200px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 3rem;
+}
+
+.product-body {
+  padding: 20px;
+}
+
+.product-category {
+  font-size: 0.8rem;
+  color: var(--secondary);
+  margin-bottom: 5px;
+}
+
+.product-name {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--dark);
+  margin-bottom: 10px;
+}
+
+.product-price {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 10px;
+}
+
+.product-stock {
+  font-size: 0.85rem;
+  color: var(--secondary);
+  margin-bottom: 15px;
+}
+
+.product-actions {
+  display: flex;
+  gap: 10px;
+}
+
+/* ===== ACTION BUTTONS ===== */
+.action-btn {
+  width: 35px;
+  height: 35px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s;
+}
+
+.action-btn.edit {
+  background: rgba(37, 99, 235, 0.1);
+  color: var(--primary);
+}
+
+.action-btn.delete {
+  background: rgba(239, 68, 68, 0.1);
+  color: var(--danger);
+}
+
+.action-btn.view {
+  background: rgba(16, 185, 129, 0.1);
+  color: var(--success);
+}
+
+.action-btn:hover {
+  transform: scale(1.1);
+}
+
+/* ===== FILTER BAR ===== */
+.filter-bar {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 25px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+.filter-row {
+  display: flex;
+  gap: 15px;
+  align-items: end;
+  flex-wrap: wrap;
+}
+
+.filter-group {
+  flex: 1;
+  min-width: 200px;
+}
+
+/* ===== PAGINATION ===== */
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 25px;
+}
+
+.pagination button {
+  padding: 8px 15px;
+  border: 1px solid var(--border);
+  background: white;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.pagination button:hover,
+.pagination button.active {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
+}
+
+/* ===== MODAL (Placeholder for future JS) ===== */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.5);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.modal {
+  background: white;
+  border-radius: 12px;
+  max-width: 600px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.modal-header {
+  padding: 20px 25px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-body {
+  padding: 25px;
+}
+
+.modal-footer {
+  padding: 20px 25px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+/* ===== ALERT ===== */
+.alert {
+  padding: 15px 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.alert-success {
+  background: rgba(16, 185, 129, 0.1);
+  color: var(--success);
+  border-left: 4px solid var(--success);
+}
+
+.alert-warning {
+  background: rgba(245, 158, 11, 0.1);
+  color: var(--warning);
+  border-left: 4px solid var(--warning);
+}
+
+.alert-danger {
+  background: rgba(239, 68, 68, 0.1);
+  color: var(--danger);
+  border-left: 4px solid var(--danger);
+}
+
+.alert-info {
+  background: rgba(37, 99, 235, 0.1);
+  color: var(--primary);
+  border-left: 4px solid var(--primary);
+}
+
+/* ===== EMPTY STATE ===== */
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--secondary);
+}
+
+.empty-state i {
+  font-size: 4rem;
+  margin-bottom: 20px;
+  opacity: 0.3;
+}
+
+.empty-state h3 {
+  font-size: 1.3rem;
+  margin-bottom: 10px;
+}
+
+.empty-state p {
+  margin-bottom: 20px;
+}
+
+/* ===== LOADING SPINNER ===== */
+.spinner {
+  border: 3px solid var(--border);
+  border-top: 3px solid var(--primary);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+  margin: 20px auto;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

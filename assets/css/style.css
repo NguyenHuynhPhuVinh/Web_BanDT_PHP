@@ -109,6 +109,11 @@ body {
   font-weight: 700;
 }
 
+/* Mobile Sidebar Show State */
+.sidebar.show {
+  transform: translateX(0) !important;
+}
+
 .sidebar-menu li a i {
   margin-right: 16px;
   font-size: 1.2rem;
@@ -141,13 +146,6 @@ body {
   position: sticky;
   top: 0;
   z-index: 999;
-}
-
-.header-left h2 {
-  font-size: 1.5rem;
-  color: var(--dark);
-  font-weight: 700;
-  letter-spacing: -0.5px;
 }
 
 .header-right {
@@ -526,6 +524,12 @@ table tbody tr:hover {
 
   .card-body {
     padding: 24px;
+  }
+
+  /* Overlay for mobile sidebar */
+  .sidebar-overlay {
+    display: none; /* Hidden by default, JS will toggle */
+    position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 999;
   }
 }
 

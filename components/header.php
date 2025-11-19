@@ -31,7 +31,9 @@ $user_initial = substr($user_fullname, 0, 1);
 <!-- Header -->
 <header class="header">
   <div class="header-left">
-    <h2><?php echo $page_title; ?></h2>
+    <button class="btn border-0 p-0 me-3" id="sidebarToggle">
+      <i class="bi bi-list fs-3 text-secondary"></i>
+    </button>
   </div>
   <div class="header-right">
     <div class="header-search">

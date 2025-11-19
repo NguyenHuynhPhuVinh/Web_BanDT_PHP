@@ -106,9 +106,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                   class="form-control" 
                   placeholder="123456"
                   required
-                  style="padding-left: 42px;"
+                  style="padding-left: 42px; padding-right: 40px;"
                 >
                 <i class="bi bi-lock" style="position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--text-muted); font-size: 1rem;"></i>
+                <!-- Eye Icon -->
+                <i class="bi bi-eye-slash" id="togglePassword" style="position: absolute; right: 14px; top: 50%; transform: translateY(-50%); cursor: pointer; color: var(--text-muted); font-size: 1.1rem;"></i>
               </div>
             </div>
 
@@ -148,5 +150,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Toggle Password Visibility
+    const togglePassword = document.querySelector('#togglePassword');
+    const password = document.querySelector('#password');
+
+    togglePassword.addEventListener('click', function (e) {
+      const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+      password.setAttribute('type', type);
+      this.classList.toggle('bi-eye');
+      this.classList.toggle('bi-eye-slash');
+    });
+  </script>
 </body>
 </html>

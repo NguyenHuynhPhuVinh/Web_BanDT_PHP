@@ -20,7 +20,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $status = 'active';
 
     // Validate Password
-    if ($password !== $confirm_password) {
+    // Regex: Ít nhất 8 ký tự, 1 chữ hoa, 1 chữ thường, 1 số, 1 ký tự đặc biệt
+    $password_pattern = '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/';
+
+    if (!preg_match($password_pattern, $password)) {
+        $error = "Mật khẩu không đủ mạnh! (Yêu cầu: Tối thiểu 8 ký tự, bao gồm chữ hoa, thường, số và ký tự đặc biệt)";
+    } elseif ($password !== $confirm_password) {
         $error = "Mật khẩu xác nhận không khớp!";
     } else {
         // Check if username or email exists
@@ -126,18 +131,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
               <input type="email" name="email" class="form-control" required placeholder="email@example.com">
             </div>
 
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label>Mật khẩu</label>
-                        <input type="password" name="password" class="form-control" required>
-                    </div>
+            <div class="form-group">
+                <label>Mật khẩu</label>
+                <div style="position: relative;">
+                    <input type="password" name="password" id="reg_password" class="form-control" required style="padding-right: 40px;" placeholder="VD: P@ssw0rd123 (Hoa, thường, số, đặc biệt)">
+                    <i class="bi bi-eye-slash" onclick="togglePass('reg_password', this)" style="position: absolute; right: 14px; top: 50%; transform: translateY(-50%); cursor: pointer; color: var(--text-muted);"></i>
                 </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label>Nhập lại MK</label>
-                        <input type="password" name="confirm_password" class="form-control" required>
-                    </div>
+                <!-- Password Hint Helper -->
+                <small class="form-text text-muted" style="font-size: 0.75rem; display: block; margin-top: 5px; line-height: 1.3; color: var(--secondary);">
+                    * Yêu cầu: Tối thiểu 8 ký tự, bao gồm chữ hoa, chữ thường, số và ký tự đặc biệt.
+                </small>
+            </div>
+
+            <div class="form-group">
+                <label>Nhập lại mật khẩu</label>
+                <div style="position: relative;">
+                    <input type="password" name="confirm_password" id="reg_confirm" class="form-control" required style="padding-right: 40px;" placeholder="Nhập lại mật khẩu bên trên">
+                    <i class="bi bi-eye-slash" onclick="togglePass('reg_confirm', this)" style="position: absolute; right: 14px; top: 50%; transform: translateY(-50%); cursor: pointer; color: var(--text-muted);"></i>
                 </div>
             </div>
 
@@ -169,5 +179,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    function togglePass(inputId, icon) {
+        const input = document.getElementById(inputId);
+        const type = input.getAttribute('type') === 'password' ? 'text' : 'password';
+        input.setAttribute('type', type);
+        icon.classList.toggle('bi-eye');
+        icon.classList.toggle('bi-eye-slash');
+    }
+  </script>
 </body>
 </html>

@@ -1,4 +1,12 @@
 <?php 
+session_start();
+
+// Check login
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login.php");
+    exit;
+}
+
 $page_title = "Dashboard";
 $current_page = "index";
 $base_url = "./";

@@ -1,6 +1,46 @@
 <?php 
+session_start();
+require_once 'config/db.php';
+
+// If already logged in, redirect to dashboard
+if (isset($_SESSION['user_id'])) {
+    header("Location: index.php");
+    exit;
+}
+
 $page_title = "Đăng nhập";
 $base_url = "./";
+$error = "";
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+
+    // Check user in DB
+    $stmt = $conn->prepare("SELECT id, username, password, full_name, role_id, avatar FROM users WHERE username = ? AND status = 'active'");
+    $stmt->bind_param("s", $username);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows === 1) {
+        $user = $result->fetch_assoc();
+        if (password_verify($password, $user['password'])) {
+            // Password correct, start session
+            $_SESSION['user_id'] = $user['id'];
+            $_SESSION['username'] = $user['username'];
+            $_SESSION['full_name'] = $user['full_name'];
+            $_SESSION['role_id'] = $user['role_id'];
+            $_SESSION['avatar'] = $user['avatar'];
+            
+            header("Location: index.php");
+            exit;
+        } else {
+            $error = "Mật khẩu không chính xác.";
+        }
+    } else {
+        $error = "Tên đăng nhập không tồn tại hoặc tài khoản bị khóa.";
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="vi">
@@ -11,6 +51,7 @@ $base_url = "./";
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
   <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/components.css">
 </head>
 <body style="background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); min-height: 100vh; display: flex; align-items: center; justify-content: center;">
   
@@ -30,8 +71,12 @@ $base_url = "./";
             <p style="color: var(--text-muted); font-size: 0.9rem; font-weight: 500;">Hệ thống quản lý cửa hàng</p>
           </div>
 
+          <?php if($error): ?>
+            <div class="alert alert-danger" style="font-size: 0.9rem; padding: 10px;"><?php echo $error; ?></div>
+          <?php endif; ?>
+
           <!-- Login Form -->
-          <form action="index.php" method="get">
+          <form action="login.php" method="post">
             
             <!-- Username -->
             <div class="form-group" style="margin-bottom: 18px;">
@@ -45,7 +90,6 @@ $base_url = "./";
                   placeholder="admin hoặc sales01"
                   required
                   style="padding-left: 42px;"
-                  value="admin"
                 >
                 <i class="bi bi-person" style="position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--text-muted); font-size: 1rem;"></i>
               </div>
@@ -63,7 +107,6 @@ $base_url = "./";
                   placeholder="123456"
                   required
                   style="padding-left: 42px;"
-                  value="123456"
                 >
                 <i class="bi bi-lock" style="position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--text-muted); font-size: 1rem;"></i>
               </div>
@@ -86,10 +129,10 @@ $base_url = "./";
 
           </form>
 
-          <!-- Demo Info -->
           <div style="margin-top: 24px; padding-top: 20px; border-top: 2px solid var(--light); text-align: center;">
             <p style="color: var(--text-muted); font-size: 0.85rem; margin: 0;">
-              Demo: <strong style="color: var(--dark);">admin</strong> / <strong style="color: var(--dark);">sales01</strong> | Pass: <strong style="color: var(--dark);">123456</strong>
+              Chưa có tài khoản? 
+              <a href="register.php" style="color: var(--primary); font-weight: 700; text-decoration: none;">Đăng ký ngay</a>
             </p>
           </div>
 

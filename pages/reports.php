@@ -1,4 +1,12 @@
 <?php 
+session_start();
+
+// Check login
+if (!isset($_SESSION['user_id'])) {
+    header("Location: ../auth/login.php");
+    exit;
+}
+
 $page_title = "Báo cáo thống kê";
 $current_page = "reports";
 $base_url = "../";

@@ -10,35 +10,41 @@ if (isset($_SESSION['user_id'])) {
 
 $page_title = "Đăng nhập";
 $base_url = "./";
-$error = "";
+$errors = []; // Mảng chứa lỗi
+$username = ""; // Biến giữ giá trị username cũ
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $username = $_POST['username'];
+    $username = trim($_POST['username']);
     $password = $_POST['password'];
 
-    // Check user in DB
-    $stmt = $conn->prepare("SELECT id, username, password, full_name, role_id, avatar FROM users WHERE username = ? AND status = 'active'");
-    $stmt->bind_param("s", $username);
-    $stmt->execute();
-    $result = $stmt->get_result();
+    // Validate Inputs
+    if (empty($username)) $errors['username'] = "Vui lòng nhập tên đăng nhập.";
+    if (empty($password)) $errors['password'] = "Vui lòng nhập mật khẩu.";
 
-    if ($result->num_rows === 1) {
-        $user = $result->fetch_assoc();
-        if (password_verify($password, $user['password'])) {
-            // Password correct, start session
-            $_SESSION['user_id'] = $user['id'];
-            $_SESSION['username'] = $user['username'];
-            $_SESSION['full_name'] = $user['full_name'];
-            $_SESSION['role_id'] = $user['role_id'];
-            $_SESSION['avatar'] = $user['avatar'];
-            
-            header("Location: index.php");
-            exit;
+    // Chỉ check DB nếu không có lỗi nhập liệu
+    if (empty($errors)) {
+        $stmt = $conn->prepare("SELECT id, username, password, full_name, role_id, avatar FROM users WHERE username = ? AND status = 'active'");
+        $stmt->bind_param("s", $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows === 1) {
+            $user = $result->fetch_assoc();
+            if (password_verify($password, $user['password'])) {
+                // Login Success
+                $_SESSION['user_id'] = $user['id'];
+                $_SESSION['username'] = $user['username'];
+                $_SESSION['full_name'] = $user['full_name'];
+                $_SESSION['role_id'] = $user['role_id'];
+                $_SESSION['avatar'] = $user['avatar'];
+                header("Location: index.php");
+                exit;
+            } else {
+                $errors['common'] = "Tên đăng nhập hoặc mật khẩu không chính xác.";
+            }
         } else {
-            $error = "Mật khẩu không chính xác.";
+            $errors['common'] = "Tên đăng nhập hoặc mật khẩu không chính xác.";
         }
-    } else {
-        $error = "Tên đăng nhập không tồn tại hoặc tài khoản bị khóa.";
     }
 }
 ?>
@@ -71,12 +77,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <p style="color: var(--text-muted); font-size: 0.9rem; font-weight: 500;">Hệ thống quản lý cửa hàng</p>
           </div>
 
-          <?php if($error): ?>
-            <div class="alert alert-danger" style="font-size: 0.9rem; padding: 10px;"><?php echo $error; ?></div>
+          <?php if(isset($errors['common'])): ?>
+            <div class="alert alert-danger" style="font-size: 0.9rem; padding: 10px;"><?php echo $errors['common']; ?></div>
           <?php endif; ?>
 
           <!-- Login Form -->
-          <form action="login.php" method="post">
+          <form action="login.php" method="post" novalidate>
             
             <!-- Username -->
             <div class="form-group" style="margin-bottom: 18px;">
@@ -86,31 +92,38 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                   type="text" 
                   id="username" 
                   name="username" 
-                  class="form-control" 
+                  class="form-control <?php echo isset($errors['username']) ? 'is-invalid' : ''; ?>" 
                   placeholder="admin hoặc sales01"
                   required
                   style="padding-left: 42px;"
+                  value="<?php echo htmlspecialchars($username); ?>"
                 >
                 <i class="bi bi-person" style="position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--text-muted); font-size: 1rem;"></i>
+                <?php if(isset($errors['username'])): ?>
+                    <div class="invalid-feedback" style="position: absolute; bottom: -22px; left: 0;"><?php echo $errors['username']; ?></div>
+                <?php endif; ?>
               </div>
             </div>
 
             <!-- Password -->
-            <div class="form-group" style="margin-bottom: 18px;">
+            <div class="form-group" style="margin-bottom: 24px;">
               <label for="password" style="margin-bottom: 8px; font-size: 0.85rem;">Mật khẩu</label>
               <div style="position: relative;">
                 <input 
                   type="password" 
                   id="password" 
                   name="password" 
-                  class="form-control" 
+                  class="form-control <?php echo isset($errors['password']) ? 'is-invalid' : ''; ?>" 
                   placeholder="123456"
                   required
-                  style="padding-left: 42px; padding-right: 40px;"
+                  style="padding-left: 42px; padding-right: 40px; background-image: none;"
                 >
                 <i class="bi bi-lock" style="position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--text-muted); font-size: 1rem;"></i>
                 <!-- Eye Icon -->
                 <i class="bi bi-eye-slash" id="togglePassword" style="position: absolute; right: 14px; top: 50%; transform: translateY(-50%); cursor: pointer; color: var(--text-muted); font-size: 1.1rem;"></i>
+                <?php if(isset($errors['password'])): ?>
+                    <div class="invalid-feedback" style="position: absolute; bottom: -22px; left: 0;"><?php echo $errors['password']; ?></div>
+                <?php endif; ?>
               </div>
             </div>
 
@@ -160,6 +173,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       password.setAttribute('type', type);
       this.classList.toggle('bi-eye');
       this.classList.toggle('bi-eye-slash');
+    });
+
+    // Auto remove error state on input
+    document.addEventListener('DOMContentLoaded', function() {
+        const inputs = document.querySelectorAll('.form-control');
+        inputs.forEach(input => {
+            input.addEventListener('input', function() {
+                this.classList.remove('is-invalid');
+                // Tìm div invalid-feedback kế tiếp hoặc trong cùng parent
+                const parent = this.parentElement;
+                const errorMsg = parent.querySelector('.invalid-feedback');
+                if (errorMsg) {
+                    errorMsg.style.display = 'none';
+                }
+            });
+        });
     });
   </script>
 </body>

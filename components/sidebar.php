@@ -15,6 +15,6 @@
     <li><a href="<?php echo $base_url; ?>pages/suppliers.php" class="<?php echo ($current_page == 'suppliers') ? 'active' : ''; ?>"><i class="bi bi-truck"></i><span>Nhà cung cấp</span></a></li>
     <li><a href="<?php echo $base_url; ?>pages/categories.php" class="<?php echo ($current_page == 'categories') ? 'active' : ''; ?>"><i class="bi bi-grid"></i><span>Danh mục</span></a></li>
     <li><a href="<?php echo $base_url; ?>pages/reports.php" class="<?php echo ($current_page == 'reports') ? 'active' : ''; ?>"><i class="bi bi-graph-up"></i><span>Báo cáo</span></a></li>
-    <li><a href="<?php echo $base_url; ?>logout.php"><i class="bi bi-box-arrow-right"></i><span>Đăng xuất</span></a></li>
+    <li><a href="<?php echo $base_url; ?>auth/logout.php"><i class="bi bi-box-arrow-right"></i><span>Đăng xuất</span></a></li>
   </ul>
 </aside>

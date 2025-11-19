@@ -94,7 +94,7 @@ $base_url = "../";
               <label>Đến ngày</label>
               <input type="date" class="form-control">
             </div>
-            <div class="filter-group" style="flex: 0;">
+            <div class="filter-group action">
               <label>&nbsp;</label>
               <button class="btn btn-success">
                 <i class="bi bi-box-arrow-in-down"></i> Nhập kho
@@ -128,7 +128,7 @@ $base_url = "../";
                     <td><strong>NK20241112001</strong></td>
                     <td><span class="badge badge-success"><i class="bi bi-arrow-down"></i> Nhập</span></td>
                     <td>iPhone 15 Pro Max 256GB</td>
-                    <td><strong style="color: var(--success);">+20</strong></td>
+                    <td><strong class="text-success">+20</strong></td>
                     <td>FPT Trading</td>
                     <td>Cường Trần</td>
                     <td>Nhập hàng định kỳ</td>
@@ -138,7 +138,7 @@ $base_url = "../";
                     <td><strong>XK20241112001</strong></td>
                     <td><span class="badge badge-danger"><i class="bi bi-arrow-up"></i> Xuất</span></td>
                     <td>Samsung Galaxy S24 Ultra</td>
-                    <td><strong style="color: var(--danger);">-1</strong></td>
+                    <td><strong class="text-danger">-1</strong></td>
                     <td>-</td>
                     <td>Bình Minh</td>
                     <td>Bán hàng - HD20241112002</td>

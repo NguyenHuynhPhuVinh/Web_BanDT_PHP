@@ -21,13 +21,13 @@ $user_initial = substr($user_fullname, 0, 1);
     </div>
     <div class="header-user">
       <?php if($avatar_url && file_exists(str_replace($base_url, '', $avatar_url))): ?>
-        <img src="<?php echo $avatar_url; ?>" class="user-avatar" style="object-fit: cover;">
+        <img src="<?php echo $avatar_url; ?>" class="user-avatar user-avatar-img">
       <?php else: ?>
         <div class="user-avatar"><?php echo strtoupper($user_initial); ?></div>
       <?php endif; ?>
       <div class="user-info">
-        <div style="font-weight: 600; font-size: 0.9rem;"><?php echo $user_fullname; ?></div>
-        <div style="font-size: 0.8rem; color: var(--secondary);"><?php echo $user_role; ?></div>
+        <div class="user-info-name"><?php echo $user_fullname; ?></div>
+        <div class="user-info-role"><?php echo $user_role; ?></div>
       </div>
     </div>
   </div>

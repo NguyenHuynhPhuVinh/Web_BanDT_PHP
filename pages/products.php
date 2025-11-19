@@ -51,7 +51,7 @@ $base_url = "../";
                 <option>Tên A-Z</option>
               </select>
             </div>
-            <div class="filter-group" style="flex: 0;">
+            <div class="filter-group action">
               <label>&nbsp;</label>
               <button class="btn btn-primary">
                 <i class="bi bi-plus-circle"></i> Thêm sản phẩm
@@ -78,7 +78,7 @@ $base_url = "../";
                   <button class="action-btn view"><i class="bi bi-eye"></i></button>
                   <button class="action-btn edit"><i class="bi bi-pencil"></i></button>
                   <button class="action-btn delete"><i class="bi bi-trash"></i></button>
-                  <button class="btn btn-primary btn-sm" style="flex: 1;">
+                  <button class="btn btn-primary btn-sm flex-grow-1">
                     <i class="bi bi-cart-plus"></i> Bán
                   </button>
                 </div>
@@ -88,7 +88,7 @@ $base_url = "../";
 
           <div class="col-md-6 col-lg-4">
             <div class="product-card">
-              <div class="product-image" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+              <div class="product-image bg-gradient-pink">
                 <i class="bi bi-phone"></i>
               </div>
               <div class="product-body">
@@ -102,7 +102,7 @@ $base_url = "../";
                   <button class="action-btn view"><i class="bi bi-eye"></i></button>
                   <button class="action-btn edit"><i class="bi bi-pencil"></i></button>
                   <button class="action-btn delete"><i class="bi bi-trash"></i></button>
-                  <button class="btn btn-primary btn-sm" style="flex: 1;">
+                  <button class="btn btn-primary btn-sm flex-grow-1">
                     <i class="bi bi-cart-plus"></i> Bán
                   </button>
                 </div>
@@ -112,7 +112,7 @@ $base_url = "../";
 
           <div class="col-md-6 col-lg-4">
             <div class="product-card">
-              <div class="product-image" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+              <div class="product-image bg-gradient-blue">
                 <i class="bi bi-phone"></i>
               </div>
               <div class="product-body">
@@ -126,7 +126,7 @@ $base_url = "../";
                   <button class="action-btn view"><i class="bi bi-eye"></i></button>
                   <button class="action-btn edit"><i class="bi bi-pencil"></i></button>
                   <button class="action-btn delete"><i class="bi bi-trash"></i></button>
-                  <button class="btn btn-primary btn-sm" style="flex: 1;">
+                  <button class="btn btn-primary btn-sm flex-grow-1">
                     <i class="bi bi-cart-plus"></i> Bán
                   </button>
                 </div>

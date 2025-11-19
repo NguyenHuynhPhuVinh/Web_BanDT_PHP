@@ -78,7 +78,7 @@ $base_url = "../";
                 <option>Giảm cố định</option>
               </select>
             </div>
-            <div class="filter-group" style="flex: 0;">
+            <div class="filter-group action">
               <label>&nbsp;</label>
               <button class="btn btn-primary">
                 <i class="bi bi-plus-circle"></i> Tạo khuyến mãi
@@ -92,26 +92,26 @@ $base_url = "../";
           <div class="col-md-6">
             <div class="card">
               <div class="card-body">
-                <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 15px;">
+                <div class="promo-header">
                   <div>
-                    <h4 style="font-size: 1.2rem; margin-bottom: 5px;">Giảm giá cuối tuần</h4>
+                    <h4 class="fs-5 mb-1">Giảm giá cuối tuần</h4>
                     <span class="badge badge-success">Đang hoạt động</span>
                   </div>
-                  <div style="text-align: right;">
-                    <div style="font-size: 1.8rem; font-weight: 700; color: var(--danger);">-5%</div>
-                    <small style="color: var(--secondary);">Giảm theo %</small>
+                  <div class="text-end">
+                    <div class="promo-discount-val">-5%</div>
+                    <small class="text-secondary">Giảm theo %</small>
                   </div>
                 </div>
-                <p style="color: var(--secondary); margin-bottom: 15px;">
+                <p class="text-secondary mb-3">
                   Áp dụng cho tất cả sản phẩm có giá trị từ 20.000.000₫
                 </p>
-                <div style="display: flex; gap: 20px; margin-bottom: 15px; font-size: 0.9rem;">
+                <div class="promo-meta">
                   <div>
-                    <i class="bi bi-calendar-event" style="color: var(--primary);"></i>
+                    <i class="bi bi-calendar-event text-primary"></i>
                     <strong>Bắt đầu:</strong> 20/05/2024
                   </div>
                   <div>
-                    <i class="bi bi-calendar-x" style="color: var(--danger);"></i>
+                    <i class="bi bi-calendar-x text-danger"></i>
                     <strong>Kết thúc:</strong> 31/12/2025
                   </div>
                 </div>
@@ -119,7 +119,7 @@ $base_url = "../";
                   <button class="action-btn view"><i class="bi bi-eye"></i></button>
                   <button class="action-btn edit"><i class="bi bi-pencil"></i></button>
                   <button class="action-btn delete"><i class="bi bi-trash"></i></button>
-                  <button class="btn btn-secondary btn-sm" style="flex: 1;">
+                  <button class="btn btn-secondary btn-sm flex-grow-1">
                     <i class="bi bi-pause-circle"></i> Tạm dừng
                   </button>
                 </div>

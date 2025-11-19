@@ -70,7 +70,7 @@ $base_url = "../";
                 <option>Ít sản phẩm nhất</option>
               </select>
             </div>
-            <div class="filter-group" style="flex: 0;">
+            <div class="filter-group action">
               <label>&nbsp;</label>
               <button class="btn btn-primary">
                 <i class="bi bi-plus-circle"></i> Thêm danh mục
@@ -84,16 +84,16 @@ $base_url = "../";
           <div class="col-md-6 col-lg-4">
             <div class="card">
               <div class="card-body">
-                <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 16px;">
-                  <div style="width: 60px; height: 60px; background: #dbeafe; border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; font-size: 1.75rem; color: var(--primary);">
+                <div class="cat-card-header">
+                  <div class="cat-icon blue">
                     <i class="bi bi-apple"></i>
                   </div>
-                  <div style="flex: 1;">
-                    <h4 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 4px;">iPhone</h4>
-                    <small style="color: var(--text-muted); font-weight: 600;">45 sản phẩm</small>
+                  <div class="flex-grow-1">
+                    <h4 class="fw-bold mb-1 fs-5">iPhone</h4>
+                    <small class="text-muted fw-semibold">45 sản phẩm</small>
                   </div>
                 </div>
-                <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 16px;">
+                <p class="text-muted small mb-3">
                   Điện thoại Apple iPhone các dòng
                 </p>
                 <div style="display: flex; gap: 10px;">
@@ -108,16 +108,16 @@ $base_url = "../";
           <div class="col-md-6 col-lg-4">
             <div class="card">
               <div class="card-body">
-                <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 16px;">
-                  <div style="width: 60px; height: 60px; background: #d1fae5; border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; font-size: 1.75rem; color: #047857;">
+                <div class="cat-card-header">
+                  <div class="cat-icon green">
                     <i class="bi bi-phone"></i>
                   </div>
-                  <div style="flex: 1;">
-                    <h4 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 4px;">Samsung</h4>
-                    <small style="color: var(--text-muted); font-weight: 600;">38 sản phẩm</small>
+                  <div class="flex-grow-1">
+                    <h4 class="fw-bold mb-1 fs-5">Samsung</h4>
+                    <small class="text-muted fw-semibold">38 sản phẩm</small>
                   </div>
                 </div>
-                <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 16px;">
+                <p class="text-muted small mb-3">
                   Điện thoại Samsung Galaxy series
                 </p>
                 <div style="display: flex; gap: 10px;">

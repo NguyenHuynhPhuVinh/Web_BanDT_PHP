@@ -81,7 +81,7 @@ $base_url = "../";
                 <option>Đà Nẵng</option>
               </select>
             </div>
-            <div class="filter-group" style="flex: 0;">
+            <div class="filter-group action">
               <label>&nbsp;</label>
               <button class="btn btn-primary">
                 <i class="bi bi-plus-circle"></i> Thêm khách hàng
@@ -112,19 +112,19 @@ $base_url = "../";
                   <tr>
                     <td><strong>#KH001</strong></td>
                     <td>
-                      <div style="font-weight: 600;">Nguyễn Văn A</div>
-                      <small style="color: var(--secondary);">Khách VIP</small>
+                      <div class="text-dark-bold">Nguyễn Văn A</div>
+                      <small class="text-secondary">Khách VIP</small>
                     </td>
                     <td>
                       <div><i class="bi bi-phone"></i> 0912345678</div>
-                      <small style="color: var(--secondary);"><i class="bi bi-envelope"></i> nguyenvana@gmail.com</small>
+                      <small class="text-secondary"><i class="bi bi-envelope"></i> nguyenvana@gmail.com</small>
                     </td>
                     <td>123 Nguyễn Trãi, Q5<br><small>TP HCM</small></td>
-                    <td><strong style="color: var(--primary);">125.500.000₫</strong></td>
+                    <td><strong class="text-primary">125.500.000₫</strong></td>
                     <td><strong>15</strong></td>
                     <td><span class="badge badge-warning">1,255 điểm</span></td>
                     <td><span class="badge badge-success">Active</span></td>
-                    <td style="white-space: nowrap;">
+                    <td class="td-actions">
                       <button class="action-btn view"><i class="bi bi-eye"></i></button>
                       <button class="action-btn edit"><i class="bi bi-pencil"></i></button>
                     </td>
@@ -132,19 +132,19 @@ $base_url = "../";
                   <tr>
                     <td><strong>#KH002</strong></td>
                     <td>
-                      <div style="font-weight: 600;">Trần Thị B</div>
-                      <small style="color: var(--text-muted);">Khách thường</small>
+                      <div class="text-dark-bold">Trần Thị B</div>
+                      <small class="text-muted">Khách thường</small>
                     </td>
                     <td>
                       <div><i class="bi bi-phone"></i> 0987654321</div>
-                      <small style="color: var(--text-muted);"><i class="bi bi-envelope"></i> tranthib@gmail.com</small>
+                      <small class="text-muted"><i class="bi bi-envelope"></i> tranthib@gmail.com</small>
                     </td>
                     <td>456 Lê Lợi, Q1<br><small>TP HCM</small></td>
-                    <td><strong style="color: var(--primary);">63.500.000₫</strong></td>
+                    <td><strong class="text-primary">63.500.000₫</strong></td>
                     <td><strong>8</strong></td>
                     <td><span class="badge badge-warning">635 điểm</span></td>
                     <td><span class="badge badge-success">Active</span></td>
-                    <td style="white-space: nowrap;">
+                    <td class="td-actions">
                       <button class="action-btn view"><i class="bi bi-eye"></i></button>
                       <button class="action-btn edit"><i class="bi bi-pencil"></i></button>
                     </td>

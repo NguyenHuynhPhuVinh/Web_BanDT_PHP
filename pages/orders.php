@@ -90,7 +90,7 @@ $base_url = "../";
               <label>Đến ngày</label>
               <input type="date" class="form-control">
             </div>
-            <div class="filter-group" style="flex: 0;">
+            <div class="filter-group action">
               <label>&nbsp;</label>
               <button class="btn btn-primary">
                 <i class="bi bi-plus-circle"></i> Tạo đơn mới
@@ -122,15 +122,15 @@ $base_url = "../";
                     <td><strong>HD20241112001</strong></td>
                     <td>
                       <div>Nguyễn Văn A</div>
-                      <small style="color: var(--secondary);">0912345678</small>
+                      <small class="text-secondary">0912345678</small>
                     </td>
                     <td>iPhone 15 Pro Max 256GB</td>
                     <td>1</td>
-                    <td><strong style="color: var(--primary);">32.000.000₫</strong></td>
+                    <td><strong class="text-primary">32.000.000₫</strong></td>
                     <td><span class="badge badge-primary">Tiền mặt</span></td>
                     <td><span class="badge badge-success">Hoàn thành</span></td>
                     <td>12/11/2024<br><small>10:30</small></td>
-                    <td style="white-space: nowrap;">
+                    <td class="td-actions">
                       <button class="action-btn view"><i class="bi bi-eye"></i></button>
                       <button class="action-btn edit"><i class="bi bi-printer"></i></button>
                     </td>
@@ -139,15 +139,15 @@ $base_url = "../";
                     <td><strong>HD20241112002</strong></td>
                     <td>
                       <div>Trần Thị B</div>
-                      <small style="color: var(--text-muted);">0987654321</small>
+                      <small class="text-muted">0987654321</small>
                     </td>
                     <td>Samsung Galaxy S24 Ultra</td>
                     <td>1</td>
-                    <td><strong style="color: var(--primary);">31.500.000₫</strong></td>
+                    <td><strong class="text-primary">31.500.000₫</strong></td>
                     <td><span class="badge badge-success">Chuyển khoản</span></td>
                     <td><span class="badge badge-warning">Đang xử lý</span></td>
                     <td>12/11/2024<br><small>11:15</small></td>
-                    <td style="white-space: nowrap;">
+                    <td class="td-actions">
                       <button class="action-btn view"><i class="bi bi-eye"></i></button>
                       <button class="action-btn edit"><i class="bi bi-printer"></i></button>
                     </td>
@@ -156,15 +156,15 @@ $base_url = "../";
                     <td><strong>HD20241112003</strong></td>
                     <td>
                       <div>Lê Văn C</div>
-                      <small style="color: var(--text-muted);">0901234567</small>
+                      <small class="text-muted">0901234567</small>
                     </td>
                     <td>Xiaomi 14 256GB</td>
                     <td>2</td>
-                    <td><strong style="color: var(--primary);">31.980.000₫</strong></td>
+                    <td><strong class="text-primary">31.980.000₫</strong></td>
                     <td><span class="badge badge-primary">Tiền mặt</span></td>
                     <td><span class="badge badge-success">Hoàn thành</span></td>
                     <td>12/11/2024<br><small>14:20</small></td>
-                    <td style="white-space: nowrap;">
+                    <td class="td-actions">
                       <button class="action-btn view"><i class="bi bi-eye"></i></button>
                       <button class="action-btn edit"><i class="bi bi-printer"></i></button>
                     </td>
@@ -173,15 +173,15 @@ $base_url = "../";
                     <td><strong>HD20241112004</strong></td>
                     <td>
                       <div>Phạm Thị D</div>
-                      <small style="color: var(--text-muted);">0912987654</small>
+                      <small class="text-muted">0912987654</small>
                     </td>
                     <td>iPhone 15 Pro Max 256GB</td>
                     <td>1</td>
-                    <td><strong style="color: var(--primary);">32.000.000₫</strong></td>
+                    <td><strong class="text-primary">32.000.000₫</strong></td>
                     <td><span class="badge badge-warning">COD</span></td>
                     <td><span class="badge badge-primary">Chờ thanh toán</span></td>
                     <td>12/11/2024<br><small>15:45</small></td>
-                    <td style="white-space: nowrap;">
+                    <td class="td-actions">
                       <button class="action-btn view"><i class="bi bi-eye"></i></button>
                       <button class="action-btn delete"><i class="bi bi-x-circle"></i></button>
                     </td>
@@ -190,15 +190,15 @@ $base_url = "../";
                     <td><strong>HD20241111005</strong></td>
                     <td>
                       <div>Hoàng Văn E</div>
-                      <small style="color: var(--text-muted);">0923456789</small>
+                      <small class="text-muted">0923456789</small>
                     </td>
                     <td>Samsung Galaxy S24 Ultra</td>
                     <td>1</td>
-                    <td><strong style="color: var(--primary);">31.500.000₫</strong></td>
+                    <td><strong class="text-primary">31.500.000₫</strong></td>
                     <td><span class="badge badge-danger">Thẻ</span></td>
                     <td><span class="badge badge-danger">Đã hủy</span></td>
                     <td>11/11/2024<br><small>16:30</small></td>
-                    <td style="white-space: nowrap;">
+                    <td class="td-actions">
                       <button class="action-btn view"><i class="bi bi-eye"></i></button>
                     </td>
                   </tr>

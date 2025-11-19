@@ -78,7 +78,7 @@ $base_url = "../";
                 <option>Inactive</option>
               </select>
             </div>
-            <div class="filter-group" style="flex: 0;">
+            <div class="filter-group action">
               <label>&nbsp;</label>
               <button class="btn btn-primary">
                 <i class="bi bi-plus-circle"></i> Thêm nhà cung cấp
@@ -108,18 +108,18 @@ $base_url = "../";
                   <tr>
                     <td><strong>#NCC001</strong></td>
                     <td>
-                      <div style="font-weight: 600;">FPT Trading</div>
-                      <small style="color: var(--text-muted);">Nhà phân phối chính hãng</small>
+                      <div class="text-dark-bold">FPT Trading</div>
+                      <small class="text-muted">Nhà phân phối chính hãng</small>
                     </td>
                     <td>
                       <div><i class="bi bi-phone"></i> 02873000911</div>
-                      <small style="color: var(--text-muted);"><i class="bi bi-envelope"></i> info@fpt.com.vn</small>
+                      <small class="text-muted"><i class="bi bi-envelope"></i> info@fpt.com.vn</small>
                     </td>
                     <td>Số 10, Phạm Văn Bạch<br><small>Hà Nội</small></td>
                     <td>Nguyễn Văn A</td>
                     <td><small>0100109106</small></td>
                     <td><span class="badge badge-success">Active</span></td>
-                    <td style="white-space: nowrap;">
+                    <td class="td-actions">
                       <button class="action-btn view"><i class="bi bi-eye"></i></button>
                       <button class="action-btn edit"><i class="bi bi-pencil"></i></button>
                       <button class="action-btn delete"><i class="bi bi-trash"></i></button>
@@ -128,18 +128,18 @@ $base_url = "../";
                   <tr>
                     <td><strong>#NCC002</strong></td>
                     <td>
-                      <div style="font-weight: 600;">Digiworld</div>
-                      <small style="color: var(--text-muted);">Nhà phân phối điện thoại</small>
+                      <div class="text-dark-bold">Digiworld</div>
+                      <small class="text-muted">Nhà phân phối điện thoại</small>
                     </td>
                     <td>
                       <div><i class="bi bi-phone"></i> 02839268888</div>
-                      <small style="color: var(--text-muted);"><i class="bi bi-envelope"></i> contact@dgw.com.vn</small>
+                      <small class="text-muted"><i class="bi bi-envelope"></i> contact@dgw.com.vn</small>
                     </td>
                     <td>195-197 Nguyễn Thái Bình<br><small>TP HCM</small></td>
                     <td>Trần Thị B</td>
                     <td><small>0301234567</small></td>
                     <td><span class="badge badge-success">Active</span></td>
-                    <td style="white-space: nowrap;">
+                    <td class="td-actions">
                       <button class="action-btn view"><i class="bi bi-eye"></i></button>
                       <button class="action-btn edit"><i class="bi bi-pencil"></i></button>
                       <button class="action-btn delete"><i class="bi bi-trash"></i></button>

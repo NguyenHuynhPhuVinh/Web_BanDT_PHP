@@ -90,7 +90,7 @@ $base_url = "../";
                 <option>Inactive</option>
               </select>
             </div>
-            <div class="filter-group" style="flex: 0;">
+            <div class="filter-group action">
               <label>&nbsp;</label>
               <button class="btn btn-primary">
                 <i class="bi bi-plus-circle"></i> Thêm người dùng
@@ -122,12 +122,12 @@ $base_url = "../";
                     <td><strong>#1</strong></td>
                     <td><strong>admin</strong></td>
                     <td>Toàn Diện</td>
-                    <td><small style="color: var(--text-muted);">admin@email.com</small></td>
+                    <td><small class="text-muted">admin@email.com</small></td>
                     <td>0912345678</td>
                     <td><span class="badge badge-danger">Admin</span></td>
                     <td><span class="badge badge-success">Active</span></td>
                     <td>01/01/2024</td>
-                    <td style="white-space: nowrap;">
+                    <td class="td-actions">
                       <button class="action-btn view"><i class="bi bi-eye"></i></button>
                       <button class="action-btn edit"><i class="bi bi-pencil"></i></button>
                     </td>
@@ -136,12 +136,12 @@ $base_url = "../";
                     <td><strong>#2</strong></td>
                     <td><strong>sales01</strong></td>
                     <td>Bình Minh</td>
-                    <td><small style="color: var(--text-muted);">sales@email.com</small></td>
+                    <td><small class="text-muted">sales@email.com</small></td>
                     <td>0901234567</td>
                     <td><span class="badge badge-primary">Sales</span></td>
                     <td><span class="badge badge-success">Active</span></td>
                     <td>20/03/2024</td>
-                    <td style="white-space: nowrap;">
+                    <td class="td-actions">
                       <button class="action-btn view"><i class="bi bi-eye"></i></button>
                       <button class="action-btn edit"><i class="bi bi-pencil"></i></button>
                       <button class="action-btn delete"><i class="bi bi-trash"></i></button>

@@ -41,7 +41,7 @@ $base_url = "../";
               <label>Đến ngày</label>
               <input type="date" class="form-control" value="2024-11-12">
             </div>
-            <div class="filter-group" style="flex: 0;">
+            <div class="filter-group action">
               <label>&nbsp;</label>
               <button class="btn btn-primary">
                 <i class="bi bi-search"></i> Xem báo cáo
@@ -131,8 +131,8 @@ $base_url = "../";
                     <td>iPhone 15 Pro Max 256GB</td>
                     <td><span class="badge badge-primary">iPhone</span></td>
                     <td><strong>145</strong></td>
-                    <td><strong style="color: var(--primary);">4.640.000.000₫</strong></td>
-                    <td><strong style="color: var(--success);">507.500.000₫</strong></td>
+                    <td><strong class="text-primary">4.640.000.000₫</strong></td>
+                    <td><strong class="text-success">507.500.000₫</strong></td>
                   </tr>
                   <tr>
                     <td><span class="badge badge-secondary" style="font-size: 1rem;">🥈 2</span></td>
@@ -140,8 +140,8 @@ $base_url = "../";
                     <td>Samsung Galaxy S24 Ultra 512GB</td>
                     <td><span class="badge badge-success">Samsung</span></td>
                     <td><strong>128</strong></td>
-                    <td><strong style="color: var(--primary);">4.032.000.000₫</strong></td>
-                    <td><strong style="color: var(--success);">576.000.000₫</strong></td>
+                    <td><strong class="text-primary">4.032.000.000₫</strong></td>
+                    <td><strong class="text-success">576.000.000₫</strong></td>
                   </tr>
                 </tbody>
               </table>

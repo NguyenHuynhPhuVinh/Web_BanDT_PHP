@@ -42,6 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
         $status = 'active';
         
+        // Nếu username rỗng trong DB (do tạo từ Google), code này sẽ update nó
         $stmt = $conn->prepare("UPDATE users SET username = ?, password = ?, status = ? WHERE id = ?");
         $stmt->bind_param("sssi", $username, $hashed_password, $status, $user_id);
         
@@ -92,29 +93,49 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="alert alert-danger"><?php echo $errors['common']; ?></div>
           <?php endif; ?>
 
-          <form method="post">
+          <form method="post" novalidate>
             
             <div class="form-group mb-3">
-              <label>Tên đăng nhập mong muốn</label>
-              <input type="text" name="username" class="form-control <?php echo isset($errors['username']) ? 'is-invalid' : ''; ?>" required placeholder="username">
+              <label>Tên đăng nhập mong muốn <span class="text-danger">*</span></label>
+              <div class="input-wrapper">
+                <input type="text" name="username" class="form-control <?php echo isset($errors['username']) ? 'is-invalid' : ''; ?>" required placeholder="username" value="<?php echo isset($_POST['username']) ? htmlspecialchars($_POST['username']) : ''; ?>">
+                <i class="bi bi-person input-icon left"></i>
+              </div>
               <?php if(isset($errors['username'])): ?>
-                <div class="invalid-feedback"><?php echo $errors['username']; ?></div>
+                <div class="invalid-feedback d-block"><?php echo $errors['username']; ?></div>
               <?php endif; ?>
             </div>
 
-            <div class="form-group mb-3">
-              <label>Mật khẩu mới</label>
-              <input type="password" name="password" class="form-control <?php echo isset($errors['password']) ? 'is-invalid' : ''; ?>" required placeholder="********">
+            <div class="form-group mb-2">
+              <label>Mật khẩu mới <span class="text-danger">*</span></label>
+              <div class="input-wrapper">
+                <input type="password" name="password" id="new_password" class="form-control <?php echo isset($errors['password']) ? 'is-invalid' : ''; ?>" required placeholder="VD: P@ssw0rd123" style="padding-right: 40px; background-image: none;">
+                <i class="bi bi-lock input-icon left"></i>
+                <i class="bi bi-eye-slash input-icon right" onclick="togglePass('new_password', this)" style="cursor: pointer;"></i>
+              </div>
               <?php if(isset($errors['password'])): ?>
-                <div class="invalid-feedback"><?php echo $errors['password']; ?></div>
+                <div class="invalid-feedback d-block"><?php echo $errors['password']; ?></div>
               <?php endif; ?>
+              
+              <!-- Password Rules List -->
+              <ul class="list-unstyled mt-2 mb-0 small text-secondary">
+                  <li id="rule-length"><i class="bi bi-x-circle"></i> Tối thiểu 8 ký tự</li>
+                  <li id="rule-upper"><i class="bi bi-x-circle"></i> Chữ cái viết hoa (A-Z)</li>
+                  <li id="rule-lower"><i class="bi bi-x-circle"></i> Chữ cái thường (a-z)</li>
+                  <li id="rule-number"><i class="bi bi-x-circle"></i> Số (0-9)</li>
+                  <li id="rule-special"><i class="bi bi-x-circle"></i> Ký tự đặc biệt (!@#$...)</li>
+              </ul>
             </div>
 
             <div class="form-group mb-4">
-              <label>Xác nhận mật khẩu</label>
-              <input type="password" name="confirm_password" class="form-control <?php echo isset($errors['confirm_password']) ? 'is-invalid' : ''; ?>" required placeholder="********">
+              <label>Xác nhận mật khẩu <span class="text-danger">*</span></label>
+              <div class="input-wrapper">
+                <input type="password" name="confirm_password" id="confirm_password" class="form-control <?php echo isset($errors['confirm_password']) ? 'is-invalid' : ''; ?>" required placeholder="Nhập lại mật khẩu" style="padding-right: 40px; background-image: none;">
+                <i class="bi bi-lock input-icon left"></i>
+                <i class="bi bi-eye-slash input-icon right" onclick="togglePass('confirm_password', this)" style="cursor: pointer;"></i>
+              </div>
               <?php if(isset($errors['confirm_password'])): ?>
-                <div class="invalid-feedback"><?php echo $errors['confirm_password']; ?></div>
+                <div class="invalid-feedback d-block"><?php echo $errors['confirm_password']; ?></div>
               <?php endif; ?>
             </div>
 
@@ -126,6 +147,72 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       </div>
     </div>
   </div>
+
+  <script>
+    // Hàm ẩn hiện mật khẩu
+    function togglePass(inputId, icon) {
+        const input = document.getElementById(inputId);
+        const type = input.getAttribute('type') === 'password' ? 'text' : 'password';
+        input.setAttribute('type', type);
+        icon.classList.toggle('bi-eye');
+        icon.classList.toggle('bi-eye-slash');
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        // Xóa trạng thái lỗi khi người dùng nhập liệu
+        const inputs = document.querySelectorAll('.form-control');
+        inputs.forEach(input => {
+            input.addEventListener('input', function() {
+                this.classList.remove('is-invalid');
+                const formGroup = this.closest('.form-group');
+                const errorMsg = formGroup.querySelector('.invalid-feedback');
+                if (errorMsg) errorMsg.style.display = 'none';
+            });
+        });
+
+        // Kiểm tra độ mạnh mật khẩu Real-time
+        const passwordInput = document.getElementById('new_password');
+        const rules = {
+            'rule-length': /.{8,}/,
+            'rule-upper': /[A-Z]/,
+            'rule-lower': /[a-z]/,
+            'rule-number': /[0-9]/,
+            'rule-special': /[\W_]/
+        };
+
+        passwordInput.addEventListener('input', function() {
+            const val = this.value;
+            for (const [id, regex] of Object.entries(rules)) {
+                const element = document.getElementById(id);
+                const icon = element.querySelector('i');
+                if (regex.test(val)) {
+                    element.classList.remove('text-danger');
+                    element.classList.add('text-success');
+                    icon.classList.remove('bi-x-circle');
+                    icon.classList.add('bi-check-circle-fill');
+                } else {
+                    element.classList.remove('text-success');
+                    // Chỉ hiện màu đỏ nếu đã nhập gì đó
+                    if(val.length > 0) element.classList.add('text-danger');
+                    else element.classList.remove('text-danger');
+                    
+                    icon.classList.remove('bi-check-circle-fill');
+                    icon.classList.add('bi-x-circle');
+                }
+            }
+        });
+
+        // Kiểm tra khớp mật khẩu Real-time
+        const confirmInput = document.getElementById('confirm_password');
+        confirmInput.addEventListener('input', function() {
+            if(this.value !== '' && this.value !== passwordInput.value) {
+                this.classList.add('is-invalid');
+            } else {
+                this.classList.remove('is-invalid');
+            }
+        });
+    });
+  </script>
 
 </body>
 </html>

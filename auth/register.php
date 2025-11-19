@@ -80,17 +80,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
   <?php include '../components/auth_head.php'; ?>
 </head>
-<body style="background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px 0;">
+<body class="auth-body">
   
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-md-6 col-lg-5">
         
-        <div style="background: var(--white); border-radius: var(--radius-xl); padding: 36px; border: 2px solid var(--border);">
+        <div class="auth-card">
           
-          <div style="text-align: center; margin-bottom: 24px;">
-            <h1 style="font-size: 1.6rem; font-weight: 700; color: var(--dark);">Đăng ký tài khoản</h1>
-            <p style="color: var(--text-muted); font-size: 0.9rem;">Tham gia hệ thống quản lý PhoneStore</p>
+          <div class="auth-header">
+            <h1 class="fw-bold text-dark fs-3">Đăng ký tài khoản</h1>
+            <p class="text-muted small">Tham gia hệ thống quản lý PhoneStore</p>
           </div>
 
           <?php if($system_error): ?>
@@ -100,7 +100,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           <?php if($success): ?>
             <div class="alert alert-success">
                 <?php echo $success; ?> 
-                <a href="login.php" style="margin-left: 10px; text-decoration: underline;">Đăng nhập ngay</a>
+                <a href="login.php" class="text-decoration-underline ms-2">Đăng nhập ngay</a>
             </div>
           <?php endif; ?>
 
@@ -142,14 +142,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             <div class="form-group">
                 <label>Mật khẩu <span class="text-danger">*</span></label>
-                <div style="position: relative;">
-                    <input type="password" name="password" id="reg_password" class="form-control <?php echo isset($errors['password']) ? 'is-invalid' : ''; ?>" required style="padding-right: 40px; background-image: none;" placeholder="VD: P@ssw0rd123 (Hoa, thường, số, đặc biệt)">
-                    <i class="bi bi-eye-slash" onclick="togglePass('reg_password', this)" style="position: absolute; right: 14px; top: 50%; transform: translateY(-50%); cursor: pointer; color: var(--text-muted);"></i>
+                <div class="input-wrapper">
+                    <input type="password" name="password" id="reg_password" class="form-control ps-3 <?php echo isset($errors['password']) ? 'is-invalid' : ''; ?>" required style="padding-right: 40px; background-image: none;" placeholder="VD: P@ssw0rd123">
+                    <i class="bi bi-eye-slash input-icon right" onclick="togglePass('reg_password', this)"></i>
                 </div>
                 <?php if(isset($errors['password'])): ?>
                     <div class="invalid-feedback" style="display:block;"><?php echo $errors['password']; ?></div>
                 <?php endif; ?>
-                <ul class="list-unstyled mt-2 mb-0" style="font-size: 0.75rem; color: var(--secondary);">
+                <ul class="list-unstyled mt-2 mb-0 small text-secondary">
                     <li id="rule-length"><i class="bi bi-x-circle"></i> Tối thiểu 8 ký tự</li>
                     <li id="rule-upper"><i class="bi bi-x-circle"></i> Chữ cái viết hoa (A-Z)</li>
                     <li id="rule-lower"><i class="bi bi-x-circle"></i> Chữ cái thường (a-z)</li>
@@ -160,9 +160,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             <div class="form-group">
                 <label>Nhập lại mật khẩu <span class="text-danger">*</span></label>
-                <div style="position: relative;">
-                    <input type="password" name="confirm_password" id="reg_confirm" class="form-control <?php echo isset($errors['confirm_password']) ? 'is-invalid' : ''; ?>" required style="padding-right: 40px; background-image: none;" placeholder="Nhập lại mật khẩu bên trên">
-                    <i class="bi bi-eye-slash" onclick="togglePass('reg_confirm', this)" style="position: absolute; right: 14px; top: 50%; transform: translateY(-50%); cursor: pointer; color: var(--text-muted);"></i>
+                <div class="input-wrapper">
+                    <input type="password" name="confirm_password" id="reg_confirm" class="form-control ps-3 <?php echo isset($errors['confirm_password']) ? 'is-invalid' : ''; ?>" required style="padding-right: 40px; background-image: none;" placeholder="Nhập lại">
+                    <i class="bi bi-eye-slash input-icon right" onclick="togglePass('reg_confirm', this)"></i>
                 </div>
                 <?php if(isset($errors['confirm_password'])): ?>
                     <div class="invalid-feedback" style="display:block;"><?php echo $errors['confirm_password']; ?></div>
@@ -171,18 +171,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             <div class="form-group">
                 <label>Ảnh đại diện</label>
-                <input type="file" name="avatar" class="form-control" accept="image/*">
+                <input type="file" name="avatar" class="form-control ps-3" accept="image/*">
             </div>
 
-            <button type="submit" class="btn btn-primary" style="width: 100%; padding: 12px; font-size: 1rem; margin-top: 10px;">
+            <button type="submit" class="btn btn-primary auth-btn">
               <i class="bi bi-person-plus"></i> Đăng ký
             </button>
 
           </form>
 
-          <div style="margin-top: 24px; text-align: center; border-top: 2px solid var(--light); padding-top: 20px;">
-            <p style="font-size: 0.9rem; color: var(--text-muted);">
-              Đã có tài khoản? <a href="login.php" style="color: var(--primary); font-weight: 700; text-decoration: none;">Đăng nhập</a>
+          <div class="auth-link-box">
+            <p class="text-muted small m-0">
+              Đã có tài khoản? <a href="login.php" class="text-primary fw-bold text-decoration-none">Đăng nhập</a>
             </p>
           </div>
 

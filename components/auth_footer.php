@@ -1,5 +1,5 @@
       <!-- Footer -->
-      <p style="text-align: center; margin-top: 24px; color: rgba(255,255,255,0.9); font-size: 0.9rem; font-weight: 500;">
+      <p class="auth-footer-text">
         &copy; 2024 PhoneStore Management System
       </p>
 

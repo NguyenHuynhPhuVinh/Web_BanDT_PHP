@@ -51,56 +51,56 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
   <?php include '../components/auth_head.php'; ?>
 </head>
-<body style="background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); min-height: 100vh; display: flex; align-items: center; justify-content: center;">
+<body class="auth-body">
   
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-md-5 col-lg-4">
         
         <!-- Login Card -->
-        <div style="background: var(--white); border-radius: var(--radius-xl); padding: 36px; border: 2px solid var(--border);">
+        <div class="auth-card">
           
           <?php include '../components/auth_logo.php'; ?>
 
           <?php if(isset($errors['common'])): ?>
-            <div class="alert alert-danger" style="font-size: 0.9rem; padding: 10px;"><?php echo $errors['common']; ?></div>
+            <div class="alert alert-danger py-2 fs-6"><?php echo $errors['common']; ?></div>
           <?php endif; ?>
 
           <!-- Login Form -->
           <form action="login.php" method="post" novalidate>
             
-            <div class="form-group" style="margin-bottom: 18px;">
-              <label for="username" style="margin-bottom: 8px; font-size: 0.85rem;">Tên đăng nhập</label>
-              <div style="position: relative;">
-                <input type="text" id="username" name="username" class="form-control <?php echo isset($errors['username']) ? 'is-invalid' : ''; ?>" placeholder="admin hoặc sales01" required style="padding-left: 42px;" value="<?php echo htmlspecialchars($username); ?>">
-                <i class="bi bi-person" style="position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--text-muted); font-size: 1rem;"></i>
-                <?php if(isset($errors['username'])): ?>
-                    <div class="invalid-feedback" style="position: absolute; bottom: -22px; left: 0;"><?php echo $errors['username']; ?></div>
-                <?php endif; ?>
+            <div class="form-group mb-3">
+              <label for="username" class="mb-2 small">Tên đăng nhập</label>
+              <div class="input-wrapper">
+                <input type="text" id="username" name="username" class="form-control <?php echo isset($errors['username']) ? 'is-invalid' : ''; ?>" placeholder="admin hoặc sales01" required value="<?php echo htmlspecialchars($username); ?>">
+                <i class="bi bi-person input-icon left"></i>
               </div>
+              <?php if(isset($errors['username'])): ?>
+                  <div class="invalid-feedback d-block"><?php echo $errors['username']; ?></div>
+              <?php endif; ?>
             </div>
 
-            <div class="form-group" style="margin-bottom: 24px;">
-              <label for="password" style="margin-bottom: 8px; font-size: 0.85rem;">Mật khẩu</label>
-              <div style="position: relative;">
-                <input type="password" id="password" name="password" class="form-control <?php echo isset($errors['password']) ? 'is-invalid' : ''; ?>" placeholder="123456" required style="padding-left: 42px; padding-right: 40px; background-image: none;">
-                <i class="bi bi-lock" style="position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--text-muted); font-size: 1rem;"></i>
-                <i class="bi bi-eye-slash" id="togglePassword" style="position: absolute; right: 14px; top: 50%; transform: translateY(-50%); cursor: pointer; color: var(--text-muted); font-size: 1.1rem;"></i>
-                <?php if(isset($errors['password'])): ?>
-                    <div class="invalid-feedback" style="position: absolute; bottom: -22px; left: 0;"><?php echo $errors['password']; ?></div>
-                <?php endif; ?>
+            <div class="form-group mb-4">
+              <label for="password" class="mb-2 small">Mật khẩu</label>
+              <div class="input-wrapper">
+                <input type="password" id="password" name="password" class="form-control <?php echo isset($errors['password']) ? 'is-invalid' : ''; ?>" placeholder="123456" required style="padding-right: 40px; background-image: none;">
+                <i class="bi bi-lock input-icon left"></i>
+                <i class="bi bi-eye-slash input-icon right" id="togglePassword"></i>
               </div>
+              <?php if(isset($errors['password'])): ?>
+                  <div class="invalid-feedback d-block"><?php echo $errors['password']; ?></div>
+              <?php endif; ?>
             </div>
 
-            <button type="submit" class="btn btn-primary" style="width: 100%; padding: 12px 24px; font-size: 0.95rem; font-weight: 700;">
-              <i class="bi bi-box-arrow-in-right" style="font-size: 1.1rem;"></i>
+            <button type="submit" class="btn btn-primary auth-btn">
+              <i class="bi bi-box-arrow-in-right fs-5"></i>
               <span>Đăng nhập</span>
             </button>
           </form>
 
-          <div style="margin-top: 24px; padding-top: 20px; border-top: 2px solid var(--light); text-align: center;">
-            <p style="color: var(--text-muted); font-size: 0.85rem; margin: 0;">
-              Chưa có tài khoản? <a href="register.php" style="color: var(--primary); font-weight: 700; text-decoration: none;">Đăng ký ngay</a>
+          <div class="auth-link-box">
+            <p class="text-muted small m-0">
+              Chưa có tài khoản? <a href="register.php" class="text-primary fw-bold text-decoration-none">Đăng ký ngay</a>
             </p>
           </div>
         </div>

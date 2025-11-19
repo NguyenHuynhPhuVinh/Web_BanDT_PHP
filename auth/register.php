@@ -23,9 +23,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $status = 'active';
     $password_pattern = '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/';
 
-    if (empty($full_name)) $errors['full_name'] = "Vui lòng nhập họ và tên.";
-    if (empty($username)) $errors['username'] = "Vui lòng nhập tên đăng nhập.";
-    if (empty($email)) $errors['email'] = "Vui lòng nhập email.";
+    // Validate họ và tên
+    if (empty($full_name)) {
+        $errors['full_name'] = "Vui lòng nhập họ và tên.";
+    } elseif (strlen($full_name) > 100) {
+        $errors['full_name'] = "Họ và tên không được vượt quá 100 ký tự.";
+    }
+    
+    // Validate tên đăng nhập
+    if (empty($username)) {
+        $errors['username'] = "Vui lòng nhập tên đăng nhập.";
+    } elseif (strlen($username) > 50) {
+        $errors['username'] = "Tên đăng nhập không được vượt quá 50 ký tự.";
+    }
+    
+    // Validate email
+    if (empty($email)) {
+        $errors['email'] = "Vui lòng nhập email.";
+    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $errors['email'] = "Email không hợp lệ.";
+    }
     
     if (!preg_match($password_pattern, $password)) {
         $errors['password'] = "Mật khẩu quá yếu (Cần 8 ký tự, Hoa, thường, số, đặc biệt).";
@@ -49,17 +66,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } else {
             $avatar = 'default-avatar.png'; 
             if (isset($_FILES['avatar']) && $_FILES['avatar']['error'] == 0) {
-                // Adjusted upload path relative to auth/ directory
-                $target_dir = "../assets/uploads/avatars/";
-                if (!file_exists($target_dir)) {
-                    mkdir($target_dir, 0777, true);
-                }
-                $file_extension = pathinfo($_FILES["avatar"]["name"], PATHINFO_EXTENSION);
-                $new_filename = $username . "_" . time() . "." . $file_extension;
-                $target_file = $target_dir . $new_filename;
+                // Validate file type - chỉ cho phép ảnh
+                $allowed_types = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
+                $file_type = $_FILES['avatar']['type'];
+                $file_extension = strtolower(pathinfo($_FILES["avatar"]["name"], PATHINFO_EXTENSION));
+                $allowed_extensions = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
                 
-                if (move_uploaded_file($_FILES["avatar"]["tmp_name"], $target_file)) {
-                    $avatar = $new_filename;
+                if (!in_array($file_type, $allowed_types) || !in_array($file_extension, $allowed_extensions)) {
+                    $errors['avatar'] = "Chỉ chấp nhận file ảnh (JPG, PNG, GIF, WEBP).";
+                } elseif ($_FILES['avatar']['size'] > 5 * 1024 * 1024) { // 5MB
+                    $errors['avatar'] = "Kích thước file không được vượt quá 5MB.";
+                } else {
+                    // Adjusted upload path relative to auth/ directory
+                    $target_dir = "../assets/uploads/avatars/";
+                    if (!file_exists($target_dir)) {
+                        mkdir($target_dir, 0777, true);
+                    }
+                    $new_filename = $username . "_" . time() . "." . $file_extension;
+                    $target_file = $target_dir . $new_filename;
+                    
+                    if (move_uploaded_file($_FILES["avatar"]["tmp_name"], $target_file)) {
+                        $avatar = $new_filename;
+                    } else {
+                        $errors['avatar'] = "Không thể tải file lên. Vui lòng thử lại.";
+                    }
                 }
             }
 
@@ -67,10 +97,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stmt = $conn->prepare("INSERT INTO users (role_id, username, password, full_name, email, phone, avatar, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
             $stmt->bind_param("isssssss", $role_id, $username, $hashed_password, $full_name, $email, $phone, $avatar, $status);
             
-            if ($stmt->execute()) {
-                $success = "Đăng ký thành công! Bạn có thể đăng nhập ngay bây giờ.";
-            } else {
-                $system_error = "Lỗi hệ thống: " . $conn->error;
+            // Chỉ thực hiện insert nếu không có lỗi avatar
+            if (empty($errors)) {
+                if ($stmt->execute()) {
+                    $success = "Đăng ký thành công! Bạn có thể đăng nhập ngay bây giờ.";
+                } else {
+                    $system_error = "Lỗi hệ thống: " . $conn->error;
+                }
             }
         }
     }
@@ -109,7 +142,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             
             <div class="form-group">
               <label>Họ và tên <span class="text-danger">*</span></label>
-              <input type="text" name="full_name" class="form-control <?php echo isset($errors['full_name']) ? 'is-invalid' : ''; ?>" value="<?php echo htmlspecialchars($full_name); ?>" required placeholder="Nguyễn Văn A">
+              <input type="text" name="full_name" class="form-control <?php echo isset($errors['full_name']) ? 'is-invalid' : ''; ?>" value="<?php echo htmlspecialchars($full_name); ?>" required placeholder="Nguyễn Văn A" maxlength="100">
               <?php if(isset($errors['full_name'])): ?>
                 <div class="invalid-feedback"><?php echo $errors['full_name']; ?></div>
               <?php endif; ?>
@@ -119,7 +152,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <div class="col-md-6">
                     <div class="form-group">
                         <label>Tên đăng nhập <span class="text-danger">*</span></label>
-                        <input type="text" name="username" class="form-control <?php echo isset($errors['username']) ? 'is-invalid' : ''; ?>" value="<?php echo htmlspecialchars($username); ?>" required placeholder="username">
+                        <input type="text" name="username" class="form-control <?php echo isset($errors['username']) ? 'is-invalid' : ''; ?>" value="<?php echo htmlspecialchars($username); ?>" required placeholder="username" maxlength="50">
                         <?php if(isset($errors['username'])): ?>
                             <div class="invalid-feedback"><?php echo $errors['username']; ?></div>
                         <?php endif; ?>
@@ -172,7 +205,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             <div class="form-group">
                 <label>Ảnh đại diện</label>
-                <input type="file" name="avatar" class="form-control ps-3" accept="image/*">
+                <input type="file" name="avatar" class="form-control ps-3 <?php echo isset($errors['avatar']) ? 'is-invalid' : ''; ?>" accept="image/jpeg,image/jpg,image/png,image/gif,image/webp">
+                <?php if(isset($errors['avatar'])): ?>
+                    <div class="invalid-feedback"><?php echo $errors['avatar']; ?></div>
+                <?php endif; ?>
             </div>
 
             <button type="submit" class="btn btn-primary auth-btn">

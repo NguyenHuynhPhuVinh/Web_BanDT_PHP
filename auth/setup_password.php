@@ -18,8 +18,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $confirm_password = $_POST['confirm_password'];
     $user_id = $_SESSION['temp_user_id'];
     
-    // Validate
-    if (empty($username)) $errors['username'] = "Vui lòng nhập tên đăng nhập.";
+    // Validate tên đăng nhập
+    if (empty($username)) {
+        $errors['username'] = "Vui lòng nhập tên đăng nhập.";
+    } elseif (strlen($username) > 50) {
+        $errors['username'] = "Tên đăng nhập không được vượt quá 50 ký tự.";
+    }
     
     // Check username exist (trừ chính user này)
     $check = $conn->prepare("SELECT id FROM users WHERE username = ? AND id != ?");
@@ -98,7 +102,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="form-group mb-3">
               <label>Tên đăng nhập mong muốn <span class="text-danger">*</span></label>
               <div class="input-wrapper">
-                <input type="text" name="username" class="form-control <?php echo isset($errors['username']) ? 'is-invalid' : ''; ?>" required placeholder="username" value="<?php echo isset($_POST['username']) ? htmlspecialchars($_POST['username']) : ''; ?>">
+                <input type="text" name="username" class="form-control <?php echo isset($errors['username']) ? 'is-invalid' : ''; ?>" required placeholder="username" value="<?php echo isset($_POST['username']) ? htmlspecialchars($_POST['username']) : ''; ?>" maxlength="50">
                 <i class="bi bi-person input-icon left"></i>
               </div>
               <?php if(isset($errors['username'])): ?>

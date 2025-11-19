@@ -1,55 +1,19 @@
+<?php 
+$page_title = "Quản lý khách hàng";
+$current_page = "customers";
+$base_url = "../";
+?>
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Quản lý khách hàng - PhoneStore</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
-  <link rel="stylesheet" href="../assets/css/style.css">
-  <link rel="stylesheet" href="../assets/css/components.css">
+  <?php include '../components/head.php'; ?>
 </head>
 <body>
   <div class="wrapper">
-    <aside class="sidebar">
-      <div class="sidebar-brand">
-        <h3><i class="bi bi-phone"></i> PhoneStore</h3>
-        <p>Quản lý cửa hàng điện thoại</p>
-      </div>
-      <ul class="sidebar-menu">
-        <li><a href="index.html"><i class="bi bi-speedometer2"></i><span>Dashboard</span></a></li>
-        <li><a href="products.html"><i class="bi bi-box-seam"></i><span>Sản phẩm</span></a></li>
-        <li><a href="orders.html"><i class="bi bi-receipt"></i><span>Đơn hàng</span></a></li>
-        <li><a href="customers.html" class="active"><i class="bi bi-people"></i><span>Khách hàng</span></a></li>
-        <li><a href="inventory.html"><i class="bi bi-archive"></i><span>Quản lý kho</span></a></li>
-        <li><a href="promotions.html"><i class="bi bi-tag"></i><span>Khuyến mãi</span></a></li>
-        <li class="menu-divider"><a href="users.html"><i class="bi bi-person-gear"></i><span>Người dùng</span></a></li>
-        <li><a href="suppliers.html"><i class="bi bi-truck"></i><span>Nhà cung cấp</span></a></li>
-        <li><a href="categories.html"><i class="bi bi-grid"></i><span>Danh mục</span></a></li>
-        <li><a href="reports.html"><i class="bi bi-graph-up"></i><span>Báo cáo</span></a></li>
-        <li><a href="#"><i class="bi bi-box-arrow-right"></i><span>Đăng xuất</span></a></li>
-      </ul>
-    </aside>
+    <?php include '../components/sidebar.php'; ?>
 
     <div class="main-content">
-      <header class="header">
-        <div class="header-left">
-          <h2>Quản lý khách hàng</h2>
-        </div>
-        <div class="header-right">
-          <div class="header-search">
-            <input type="text" placeholder="Tìm khách hàng...">
-            <i class="bi bi-search"></i>
-          </div>
-          <div class="header-user">
-            <div class="user-avatar">AD</div>
-            <div class="user-info">
-              <div style="font-weight: 600; font-size: 0.9rem;">Admin</div>
-              <div style="font-size: 0.8rem; color: var(--secondary);">Quản trị viên</div>
-            </div>
-          </div>
-        </div>
-      </header>
+      <?php include '../components/header.php'; ?>
 
       <div class="content">
         <div class="page-title">
@@ -185,66 +149,6 @@
                       <button class="action-btn edit"><i class="bi bi-pencil"></i></button>
                     </td>
                   </tr>
-                  <tr>
-                    <td><strong>#KH003</strong></td>
-                    <td>
-                      <div style="font-weight: 600;">Lê Văn C</div>
-                      <small style="color: var(--text-muted);">Khách VIP</small>
-                    </td>
-                    <td>
-                      <div><i class="bi bi-phone"></i> 0901234567</div>
-                      <small style="color: var(--text-muted);"><i class="bi bi-envelope"></i> levanc@gmail.com</small>
-                    </td>
-                    <td>789 Trần Hưng Đạo, Q5<br><small>TP HCM</small></td>
-                    <td><strong style="color: var(--primary);">95.800.000₫</strong></td>
-                    <td><strong>12</strong></td>
-                    <td><span class="badge badge-warning">958 điểm</span></td>
-                    <td><span class="badge badge-success">Active</span></td>
-                    <td style="white-space: nowrap;">
-                      <button class="action-btn view"><i class="bi bi-eye"></i></button>
-                      <button class="action-btn edit"><i class="bi bi-pencil"></i></button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td><strong>#KH004</strong></td>
-                    <td>
-                      <div style="font-weight: 600;">Phạm Thị D</div>
-                      <small style="color: var(--text-muted);">Khách thường</small>
-                    </td>
-                    <td>
-                      <div><i class="bi bi-phone"></i> 0912987654</div>
-                      <small style="color: var(--text-muted);"><i class="bi bi-envelope"></i> phamthid@gmail.com</small>
-                    </td>
-                    <td>321 Võ Văn Tần, Q3<br><small>TP HCM</small></td>
-                    <td><strong style="color: var(--primary);">32.000.000₫</strong></td>
-                    <td><strong>3</strong></td>
-                    <td><span class="badge badge-warning">320 điểm</span></td>
-                    <td><span class="badge badge-success">Active</span></td>
-                    <td style="white-space: nowrap;">
-                      <button class="action-btn view"><i class="bi bi-eye"></i></button>
-                      <button class="action-btn edit"><i class="bi bi-pencil"></i></button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td><strong>#KH005</strong></td>
-                    <td>
-                      <div style="font-weight: 600;">Hoàng Văn E</div>
-                      <small style="color: var(--text-muted);">Khách thường</small>
-                    </td>
-                    <td>
-                      <div><i class="bi bi-phone"></i> 0923456789</div>
-                      <small style="color: var(--text-muted);"><i class="bi bi-envelope"></i> hoangvane@gmail.com</small>
-                    </td>
-                    <td>654 Nguyễn Thị Minh Khai, Q1<br><small>TP HCM</small></td>
-                    <td><strong style="color: var(--primary);">15.990.000₫</strong></td>
-                    <td><strong>1</strong></td>
-                    <td><span class="badge badge-warning">159 điểm</span></td>
-                    <td><span class="badge badge-secondary">Inactive</span></td>
-                    <td style="white-space: nowrap;">
-                      <button class="action-btn view"><i class="bi bi-eye"></i></button>
-                      <button class="action-btn edit"><i class="bi bi-pencil"></i></button>
-                    </td>
-                  </tr>
                 </tbody>
               </table>
             </div>
@@ -260,15 +164,10 @@
         </div>
       </div>
 
-      <footer style="background: white; padding: 20px 30px; text-align: center; border-top: 1px solid var(--border); margin-top: auto;">
-        <p style="color: var(--secondary); font-size: 0.9rem;">
-          &copy; 2024 PhoneStore Management System. All rights reserved.
-        </p>
-      </footer>
+      <?php include '../components/footer.php'; ?>
     </div>
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="../assets/js/main.js"></script>
+  <?php include '../components/scripts.php'; ?>
 </body>
 </html>

@@ -1,64 +1,20 @@
+<?php 
+$page_title = "Dashboard";
+$current_page = "index";
+$base_url = "./";
+?>
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard - PhoneStore Management</title>
-  
-  <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <!-- Bootstrap Icons -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
-  <!-- Custom CSS -->
-  <link rel="stylesheet" href="../assets/css/style.css">
-  <link rel="stylesheet" href="../assets/css/components.css">
+  <?php include 'components/head.php'; ?>
 </head>
 <body>
   <div class="wrapper">
-    <!-- Sidebar -->
-    <aside class="sidebar">
-      <div class="sidebar-brand">
-        <h3><i class="bi bi-phone"></i> PhoneStore</h3>
-        <p>Quản lý cửa hàng điện thoại</p>
-      </div>
-      <ul class="sidebar-menu">
-        <li><a href="index.html" class="active"><i class="bi bi-speedometer2"></i><span>Dashboard</span></a></li>
-        <li><a href="products.html"><i class="bi bi-box-seam"></i><span>Sản phẩm</span></a></li>
-        <li><a href="orders.html"><i class="bi bi-receipt"></i><span>Đơn hàng</span></a></li>
-        <li><a href="customers.html"><i class="bi bi-people"></i><span>Khách hàng</span></a></li>
-        <li><a href="inventory.html"><i class="bi bi-archive"></i><span>Quản lý kho</span></a></li>
-        <li><a href="promotions.html"><i class="bi bi-tag"></i><span>Khuyến mãi</span></a></li>
-        <li class="menu-divider"><a href="users.html"><i class="bi bi-person-gear"></i><span>Người dùng</span></a></li>
-        <li><a href="suppliers.html"><i class="bi bi-truck"></i><span>Nhà cung cấp</span></a></li>
-        <li><a href="categories.html"><i class="bi bi-grid"></i><span>Danh mục</span></a></li>
-        <li><a href="reports.html"><i class="bi bi-graph-up"></i><span>Báo cáo</span></a></li>
-        <li><a href="#"><i class="bi bi-box-arrow-right"></i><span>Đăng xuất</span></a></li>
-      </ul>
-    </aside>
+    <?php include 'components/sidebar.php'; ?>
 
-    <!-- Main Content -->
     <div class="main-content">
-      <!-- Header -->
-      <header class="header">
-        <div class="header-left">
-          <h2>Dashboard</h2>
-        </div>
-        <div class="header-right">
-          <div class="header-search">
-            <input type="text" placeholder="Tìm kiếm...">
-            <i class="bi bi-search"></i>
-          </div>
-          <div class="header-user">
-            <div class="user-avatar">AD</div>
-            <div class="user-info">
-              <div style="font-weight: 600; font-size: 0.9rem;">Admin</div>
-              <div style="font-size: 0.8rem; color: var(--secondary);">Quản trị viên</div>
-            </div>
-          </div>
-        </div>
-      </header>
+      <?php include 'components/header.php'; ?>
 
-      <!-- Content -->
       <div class="content">
         <div class="page-title">
           <h1>Tổng quan</h1>
@@ -116,7 +72,7 @@
         <div class="card">
           <div class="card-header">
             <h3>Đơn hàng gần đây</h3>
-            <a href="orders.html" class="btn btn-primary btn-sm">Xem tất cả</a>
+            <a href="pages/orders.php" class="btn btn-primary btn-sm">Xem tất cả</a>
           </div>
           <div class="card-body">
             <div class="table-responsive">
@@ -174,7 +130,7 @@
         <div class="card">
           <div class="card-header">
             <h3>Cảnh báo tồn kho thấp</h3>
-            <a href="inventory.html" class="btn btn-danger btn-sm">Xem chi tiết</a>
+            <a href="pages/inventory.php" class="btn btn-danger btn-sm">Xem chi tiết</a>
           </div>
           <div class="card-body">
             <div class="alert alert-warning">
@@ -214,18 +170,10 @@
         </div>
       </div>
 
-      <!-- Footer -->
-      <footer style="background: white; padding: 20px 30px; text-align: center; border-top: 1px solid var(--border); margin-top: auto;">
-        <p style="color: var(--secondary); font-size: 0.9rem;">
-          &copy; 2024 PhoneStore Management System. All rights reserved.
-        </p>
-      </footer>
+      <?php include 'components/footer.php'; ?>
     </div>
   </div>
 
-  <!-- Bootstrap JS -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  <!-- Custom JS -->
-  <script src="../assets/js/main.js"></script>
+  <?php include 'components/scripts.php'; ?>
 </body>
 </html>

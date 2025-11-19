@@ -1,6 +1,7 @@
 <?php 
 session_start();
 require_once '../config/db.php'; // Adjusted path
+require_once '../config/google_config.php'; // Include Google Config
 
 $page_title = "Đăng ký tài khoản";
 $base_url = "../"; // Adjusted path
@@ -177,6 +178,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <button type="submit" class="btn btn-primary auth-btn">
               <i class="bi bi-person-plus"></i> Đăng ký
             </button>
+
+            <!-- Google Register Button -->
+            <div class="text-center mt-3 mb-3">
+                <span class="text-muted small">HOẶC</span>
+            </div>
+            
+            <a href="<?php echo $login_url; ?>" class="btn btn-light w-100 d-flex align-items-center justify-content-center gap-2 border">
+                <img src="https://www.svgrepo.com/show/475656/google-color.svg" style="width: 20px; height: 20px;">
+                <span>Đăng ký bằng Google</span>
+            </a>
 
           </form>
 

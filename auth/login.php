@@ -1,6 +1,7 @@
 <?php 
 session_start();
 require_once '../config/db.php'; // Adjusted path
+require_once '../config/google_config.php'; // Include Google Config
 
 // If already logged in, redirect to dashboard
 if (isset($_SESSION['user_id'])) {
@@ -18,12 +19,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = $_POST['password'];
 
     // Validate Inputs
-    if (empty($username)) $errors['username'] = "Vui lòng nhập tên đăng nhập.";
+    if (empty($username)) $errors['username'] = "Vui lòng nhập tên đăng nhập hoặc email.";
     if (empty($password)) $errors['password'] = "Vui lòng nhập mật khẩu.";
 
     if (empty($errors)) {
-        $stmt = $conn->prepare("SELECT id, username, password, full_name, role_id, avatar FROM users WHERE username = ? AND status = 'active'");
-        $stmt->bind_param("s", $username);
+        // Cho phép đăng nhập bằng username hoặc email
+        $stmt = $conn->prepare("SELECT id, username, password, full_name, role_id, avatar FROM users WHERE (username = ? OR email = ?) AND status = 'active'");
+        $stmt->bind_param("ss", $username, $username);
         $stmt->execute();
         $result = $stmt->get_result();
 
@@ -70,9 +72,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           <form action="login.php" method="post" novalidate>
             
             <div class="form-group mb-3">
-              <label for="username" class="mb-2 small">Tên đăng nhập</label>
+              <label for="username" class="mb-2 small">Tên đăng nhập / Email</label>
               <div class="input-wrapper">
-                <input type="text" id="username" name="username" class="form-control <?php echo isset($errors['username']) ? 'is-invalid' : ''; ?>" placeholder="admin hoặc sales01" required value="<?php echo htmlspecialchars($username); ?>">
+                <input type="text" id="username" name="username" class="form-control <?php echo isset($errors['username']) ? 'is-invalid' : ''; ?>" placeholder="Username hoặc Email" required value="<?php echo htmlspecialchars($username); ?>">
                 <i class="bi bi-person input-icon left"></i>
               </div>
               <?php if(isset($errors['username'])): ?>
@@ -96,6 +98,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
               <i class="bi bi-box-arrow-in-right fs-5"></i>
               <span>Đăng nhập</span>
             </button>
+
+            <!-- Google Login Button -->
+            <div class="text-center mt-3 mb-3">
+                <span class="text-muted small">HOẶC</span>
+            </div>
+            
+            <a href="<?php echo $login_url; ?>" class="btn btn-light w-100 d-flex align-items-center justify-content-center gap-2 border">
+                <img src="https://www.svgrepo.com/show/475656/google-color.svg" style="width: 20px; height: 20px;">
+                <span>Đăng nhập bằng Google</span>
+            </a>
           </form>
 
           <div class="auth-link-box">

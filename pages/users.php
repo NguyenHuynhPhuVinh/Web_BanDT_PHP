@@ -116,6 +116,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
             $user = $stmt->get_result()->fetch_assoc();
             echo json_encode($user);
             exit;
+            
+        case 'check_duplicate':
+            $field = $_POST['field']; // 'username' or 'email'
+            $value = trim($_POST['value']);
+            $exclude_id = isset($_POST['exclude_id']) ? intval($_POST['exclude_id']) : 0;
+            
+            if ($field === 'username') {
+                $stmt = $conn->prepare("SELECT id FROM users WHERE username = ? AND id != ?");
+            } else {
+                $stmt = $conn->prepare("SELECT id FROM users WHERE email = ? AND id != ?");
+            }
+            $stmt->bind_param("si", $value, $exclude_id);
+            $stmt->execute();
+            $exists = $stmt->get_result()->num_rows > 0;
+            echo json_encode(['exists' => $exists]);
+            exit;
     }
 }
 
@@ -391,6 +407,7 @@ $base_url = "../";
       </div>
       <form id="userForm">
         <div class="user-modal-body">
+          <div id="modalAlertBox"></div>
           <input type="hidden" name="action" id="formAction" value="create">
           <input type="hidden" name="id" id="userId">
           
@@ -406,6 +423,7 @@ $base_url = "../";
           <div class="form-group">
             <label>Tên đăng nhập <span style="color:red">*</span></label>
             <input type="text" name="username" id="username" required minlength="3">
+            <small id="usernameError" class="field-error" style="color:#dc2626;display:none;margin-top:4px;"></small>
           </div>
           
           <div class="form-group">
@@ -422,6 +440,7 @@ $base_url = "../";
           <div class="form-group">
             <label>Email <span style="color:red">*</span></label>
             <input type="email" name="email" id="email" required>
+            <small id="emailError" class="field-error" style="color:#dc2626;display:none;margin-top:4px;"></small>
           </div>
           
           <div class="form-group">
@@ -472,11 +491,21 @@ $base_url = "../";
         document.getElementById('password').required = true;
         document.getElementById('pwdRequired').style.display = 'inline';
         document.getElementById('pwdHint').style.display = 'none';
+        // Reset error states
+        resetFieldErrors();
       }
+    }
+    
+    function resetFieldErrors() {
+      document.getElementById('usernameError').style.display = 'none';
+      document.getElementById('emailError').style.display = 'none';
+      document.getElementById('username').style.borderColor = '#ddd';
+      document.getElementById('email').style.borderColor = '#ddd';
     }
     
     function closeModal() {
       document.getElementById('userModal').classList.remove('show');
+      resetFieldErrors();
     }
     
     function closeViewModal() {
@@ -487,6 +516,12 @@ $base_url = "../";
       const alertBox = document.getElementById('alertBox');
       alertBox.innerHTML = `<div class="alert alert-${type}">${message}</div>`;
       setTimeout(() => alertBox.innerHTML = '', 3000);
+    }
+    
+    function showModalAlert(message, type) {
+      const modalAlertBox = document.getElementById('modalAlertBox');
+      modalAlertBox.innerHTML = `<div class="alert alert-${type}">${message}</div>`;
+      setTimeout(() => modalAlertBox.innerHTML = '', 4000);
     }
     
     function editUser(id) {
@@ -566,13 +601,81 @@ $base_url = "../";
       .then(res => res.json())
       .then(data => {
         if (data.success) {
-          showAlert(data.message, 'success');
           closeModal();
+          showAlert(data.message, 'success');
           setTimeout(() => location.reload(), 1000);
         } else {
-          showAlert(data.message, 'error');
+          showModalAlert(data.message, 'error');
         }
       });
+    });
+    
+    // Check duplicate username
+    let usernameTimeout;
+    document.getElementById('username').addEventListener('input', function() {
+      clearTimeout(usernameTimeout);
+      const value = this.value.trim();
+      const errorEl = document.getElementById('usernameError');
+      const excludeId = document.getElementById('userId').value || 0;
+      
+      if (value.length < 3) {
+        errorEl.style.display = 'none';
+        this.style.borderColor = '#ddd';
+        return;
+      }
+      
+      usernameTimeout = setTimeout(() => {
+        fetch('users.php', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+          body: `action=check_duplicate&field=username&value=${encodeURIComponent(value)}&exclude_id=${excludeId}`
+        })
+        .then(res => res.json())
+        .then(data => {
+          if (data.exists) {
+            errorEl.textContent = '⚠ Tên đăng nhập đã tồn tại!';
+            errorEl.style.display = 'block';
+            this.style.borderColor = '#dc2626';
+          } else {
+            errorEl.style.display = 'none';
+            this.style.borderColor = '#22c55e';
+          }
+        });
+      }, 300);
+    });
+    
+    // Check duplicate email
+    let emailTimeout;
+    document.getElementById('email').addEventListener('input', function() {
+      clearTimeout(emailTimeout);
+      const value = this.value.trim();
+      const errorEl = document.getElementById('emailError');
+      const excludeId = document.getElementById('userId').value || 0;
+      
+      if (!value || !value.includes('@')) {
+        errorEl.style.display = 'none';
+        this.style.borderColor = '#ddd';
+        return;
+      }
+      
+      emailTimeout = setTimeout(() => {
+        fetch('users.php', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+          body: `action=check_duplicate&field=email&value=${encodeURIComponent(value)}&exclude_id=${excludeId}`
+        })
+        .then(res => res.json())
+        .then(data => {
+          if (data.exists) {
+            errorEl.textContent = '⚠ Email đã tồn tại!';
+            errorEl.style.display = 'block';
+            this.style.borderColor = '#dc2626';
+          } else {
+            errorEl.style.display = 'none';
+            this.style.borderColor = '#22c55e';
+          }
+        });
+      }, 300);
     });
   </script>
 </body>

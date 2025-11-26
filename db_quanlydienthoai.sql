@@ -24,6 +24,22 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Drop existing tables (in correct order due to foreign keys)
+--
+DROP TABLE IF EXISTS `stock_movements`;
+DROP TABLE IF EXISTS `order_items`;
+DROP TABLE IF EXISTS `orders`;
+DROP TABLE IF EXISTS `promotions`;
+DROP TABLE IF EXISTS `products`;
+DROP TABLE IF EXISTS `categories`;
+DROP TABLE IF EXISTS `customers`;
+DROP TABLE IF EXISTS `suppliers`;
+DROP TABLE IF EXISTS `users`;
+DROP TABLE IF EXISTS `roles`;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `categories`
 --
 

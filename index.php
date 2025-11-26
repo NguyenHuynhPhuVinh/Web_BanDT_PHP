@@ -10,6 +10,24 @@ if (!isset($_SESSION['user_id'])) {
 $page_title = "Dashboard";
 $current_page = "index";
 $base_url = "./";
+
+// Lấy role_id từ session
+$role_id = isset($_SESSION['role_id']) ? $_SESSION['role_id'] : 0;
+
+// Định nghĩa quyền xem các phần trên dashboard
+// 1: admin, 2: manager, 3: sales, 4: warehouse
+$dashboard_permissions = [
+    'revenue'    => [1, 2],         // Doanh thu: Admin, Manager
+    'orders'     => [1, 2, 3],      // Đơn hàng: Admin, Manager, Sales
+    'products'   => [1, 2, 3, 4],   // Sản phẩm: Tất cả
+    'inventory'  => [1, 2, 4],      // Cảnh báo tồn kho: Admin, Manager, Warehouse
+];
+
+// Hàm kiểm tra quyền dashboard
+function canViewDashboard($section, $role_id, $permissions) {
+    if (!isset($permissions[$section])) return true;
+    return in_array($role_id, $permissions[$section]);
+}
 ?>
 <!DOCTYPE html>
 <html lang="vi">
@@ -31,6 +49,7 @@ $base_url = "./";
 
         <!-- Stats Cards -->
         <div class="stats-grid">
+          <?php if (canViewDashboard('revenue', $role_id, $dashboard_permissions)): ?>
           <div class="stat-card">
             <div class="stat-icon blue">
               <i class="bi bi-currency-dollar"></i>
@@ -41,7 +60,9 @@ $base_url = "./";
               <div class="stat-change up"><i class="bi bi-arrow-up"></i> +12.5%</div>
             </div>
           </div>
+          <?php endif; ?>
 
+          <?php if (canViewDashboard('orders', $role_id, $dashboard_permissions)): ?>
           <div class="stat-card">
             <div class="stat-icon green">
               <i class="bi bi-receipt"></i>
@@ -52,7 +73,9 @@ $base_url = "./";
               <div class="stat-change up"><i class="bi bi-arrow-up"></i> +8.2%</div>
             </div>
           </div>
+          <?php endif; ?>
 
+          <?php if (canViewDashboard('products', $role_id, $dashboard_permissions)): ?>
           <div class="stat-card">
             <div class="stat-icon orange">
               <i class="bi bi-box-seam"></i>
@@ -63,7 +86,9 @@ $base_url = "./";
               <div class="stat-change down"><i class="bi bi-arrow-down"></i> -3 sản phẩm</div>
             </div>
           </div>
+          <?php endif; ?>
 
+          <?php if (canViewDashboard('inventory', $role_id, $dashboard_permissions)): ?>
           <div class="stat-card">
             <div class="stat-icon red">
               <i class="bi bi-exclamation-triangle"></i>
@@ -74,9 +99,11 @@ $base_url = "./";
               <div class="stat-change down"><i class="bi bi-arrow-down"></i> Cần nhập hàng</div>
             </div>
           </div>
+          <?php endif; ?>
         </div>
 
-        <!-- Recent Orders -->
+        <!-- Recent Orders - Chỉ hiển thị cho Admin, Manager, Sales -->
+        <?php if (canViewDashboard('orders', $role_id, $dashboard_permissions)): ?>
         <div class="card">
           <div class="card-header">
             <h3>Đơn hàng gần đây</h3>
@@ -133,8 +160,10 @@ $base_url = "./";
             </div>
           </div>
         </div>
+        <?php endif; ?>
 
-        <!-- Low Stock Alert -->
+        <!-- Low Stock Alert - Chỉ hiển thị cho Admin, Manager, Warehouse -->
+        <?php if (canViewDashboard('inventory', $role_id, $dashboard_permissions)): ?>
         <div class="card">
           <div class="card-header">
             <h3>Cảnh báo tồn kho thấp</h3>
@@ -176,6 +205,7 @@ $base_url = "./";
             </div>
           </div>
         </div>
+        <?php endif; ?>
       </div>
 
       <?php include 'components/footer.php'; ?>
